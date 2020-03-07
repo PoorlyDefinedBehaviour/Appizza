@@ -1,0 +1,22 @@
+version: "3"
+services:
+  db:
+    restart: always
+    image: postgres:alpine
+    environment:
+      POSTGRES_PASSWORD: "password"
+    volumes:
+      - ./appizzas_database:/var/lib/appizzas_database/data
+    ports:
+      - "5432:5432"
+  app:
+    build: .
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/usr/app
+    depends_on:
+      - db
+    command: yarn start
