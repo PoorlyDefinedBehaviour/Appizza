@@ -9,6 +9,7 @@ import {
 import { Field, ObjectType } from "type-graphql"
 import Coupon from "./Coupon.entity"
 import Order from "./Order.entity"
+import Category from "./Category.entity"
 
 @ObjectType()
 export default class Product extends BaseEntity {
@@ -41,6 +42,13 @@ export default class Product extends BaseEntity {
     (coupon) => coupon.products
   )
   coupons: Coupon[]
+
+  @Field(() => [Category])
+  @ManyToMany(
+    () => Category,
+    (category) => category.products
+  )
+  categories: Category[]
 
   @Field(() => Date)
   @CreateDateColumn()

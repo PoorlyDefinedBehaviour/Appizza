@@ -11,7 +11,6 @@ sudo docker-compose up
 
 ```sh
 sudo docker run --name appizzas_mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -d mysql
-
 cd server
 yarn start
 ```
