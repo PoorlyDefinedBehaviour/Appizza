@@ -2,13 +2,13 @@ version: "3"
 services:
   db:
     restart: always
-    image: postgres:alpine
+    image: mysql
     environment:
-      POSTGRES_PASSWORD: "password"
+      MYSQL_ROOT_PASSWORD: "password"
     volumes:
       - ./appizzas_database:/var/lib/appizzas_database/data
     ports:
-      - "5432:5432"
+      - "3306:3306"
   app:
     build: .
     volumes:
