@@ -13,7 +13,7 @@ export default class CreditCard extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id!: string
 
-  @Column()
+  @Column({ unique: true })
   number!: string
 
   @Column()

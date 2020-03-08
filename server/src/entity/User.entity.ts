@@ -31,7 +31,7 @@ export default class User extends BaseEntity {
   last_name!: string
 
   @Field(() => String)
-  @Column()
+  @Column({ unique: true })
   email!: string
 
   @Field(() => String)
@@ -73,6 +73,7 @@ export default class User extends BaseEntity {
   roles: Role[]
 
   @AfterLoad()
+  // @ts-ignore
   private loadTempPassword(): void {
     this.temp_password = this.password
   }

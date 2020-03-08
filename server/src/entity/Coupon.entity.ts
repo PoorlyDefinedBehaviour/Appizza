@@ -15,6 +15,10 @@ export default class Coupon extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id!: string
 
+  @Field(() => String)
+  @Column({ unique: true })
+  code!: string
+
   @Field(() => Int)
   @Column()
   discount!: number

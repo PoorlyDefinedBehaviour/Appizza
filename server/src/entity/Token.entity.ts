@@ -26,7 +26,6 @@ export default class Token extends BaseEntity {
     () => User,
     (user) => user.tokens
   )
-  @Column()
   user!: User
 
   @Column({ default: TokenType.AUTH })

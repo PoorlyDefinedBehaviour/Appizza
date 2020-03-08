@@ -3,7 +3,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  BaseEntity
+  BaseEntity,
+  Column,
+  Index
 } from "typeorm"
 import User from "./User.entity"
 import { ObjectType, Field } from "type-graphql"
@@ -13,6 +15,19 @@ export default class Role extends BaseEntity {
   @Field(() => String)
   @PrimaryGeneratedColumn("uuid")
   id!: string
+
+  @Field(() => String)
+  @Column()
+  title!: string
+
+  @Field(() => String)
+  @Column({ unique: true })
+  @Index()
+  slug!: string
+
+  @Field(() => String)
+  @Column()
+  description!: string
 
   @Field(() => [User])
   @ManyToMany(
