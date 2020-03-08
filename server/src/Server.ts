@@ -10,6 +10,7 @@ import { Server } from "http"
 
 import loadResolvers from "@Utils/LoadResolvers"
 import loadEntities from "@Utils/LoadEntities"
+import Auth from "@Helpers/Auth"
 
 interface ServerStartResult {
   server: Server
@@ -36,7 +37,7 @@ export default async function startServer(): Promise<ServerStartResult> {
     schema: await buildSchema({
       resolvers: loadResolvers()
     }),
-    context: (ctx) => ctx,
+    context: (ctx) => ({ ...ctx, auth: new Auth() }),
     debug: !isProductionEnv,
     playground: !isProductionEnv
   })
