@@ -1,4 +1,4 @@
-/*import Role from "@Entities/Role"
+import Role from "@Entities/Role"
 
 export default async function run() {
   await Promise.all([
@@ -14,4 +14,3 @@ export default async function run() {
     })
   ])
 }
-*/

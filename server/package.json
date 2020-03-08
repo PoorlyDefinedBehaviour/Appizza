@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "node_modules/.bin/nodemon"
+    "dev": "node_modules/.bin/nodemon",
+    "db:seed": "node_modules/.bin/ts-node src/seeds/Seed"
   },
   "nodemonConfig": {
     "ignore": [

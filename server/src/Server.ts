@@ -38,7 +38,7 @@ export default async function startServer(): Promise<ServerStartResult> {
       resolvers: loadResolvers(),
       globalMiddlewares: [Auth]
     }),
-    context: (ctx) => ({ ...ctx }),
+    context: (ctx) => ctx,
 
     debug: !isProductionEnv,
     playground: !isProductionEnv
