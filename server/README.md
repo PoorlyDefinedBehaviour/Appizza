@@ -24,7 +24,7 @@ cd server
 yarn start
 ```
 
-# GraphQL Playgroung
+# GraphQL Playground
 
 Go to localhost:<PORT>/graphql
 
