@@ -23,3 +23,13 @@ Just make sure mysql is running on port 3306 and the root password is 'password'
 cd server
 yarn start
 ```
+
+# GraphQL Playground
+
+Go to localhost:<PORT>/graphql
+
+If a route requires authentication you need to:
+
+- Login
+- Set "request.credentials": "include" on settings
+- Send "Authorization": "token" header

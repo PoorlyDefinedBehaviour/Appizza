@@ -4,11 +4,13 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Column,
-  OneToMany
+  OneToMany,
+  Entity,
+  OneToOne
 } from "typeorm"
-import { ObjectType, Field, Int } from "type-graphql"
-import Order from "./Order.entity"
-import CreditCard from "./CreditCard.entity"
+import { ObjectType, Field, Int, ID } from "type-graphql"
+import CreditCard from "@Entities/CreditCard"
+import Order from "@Entities/Order"
 
 enum PaymentType {
   FREE = 0,
@@ -16,11 +18,12 @@ enum PaymentType {
   MONEY = 2
 }
 
-@ObjectType()
+@ObjectType("payment")
+@Entity("payments")
 export default class Payment extends BaseEntity {
-  @Field(() => String)
-  @PrimaryGeneratedColumn("uuid")
-  id!: string
+  @Field(() => ID)
+  @PrimaryGeneratedColumn()
+  id!: number
 
   @Field(() => Int)
   @Column()
@@ -33,7 +36,7 @@ export default class Payment extends BaseEntity {
   credit_card: CreditCard
 
   @Field(() => Order)
-  @Column()
+  @OneToOne(() => Order)
   order!: Order
 
   @Field(() => Date)

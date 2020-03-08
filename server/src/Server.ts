@@ -5,22 +5,16 @@ import express from "express"
 import cors from "cors"
 import { createConnection, getConnectionOptions } from "typeorm"
 import { ApolloServer } from "apollo-server-express"
-import { buildSchema, Resolver, Query } from "type-graphql"
-
+import { buildSchema } from "type-graphql"
 import { Server } from "http"
-import loadResolvers from "./utils/LoadResolvers"
+
+import loadResolvers from "@Utils/LoadResolvers"
+import loadEntities from "@Utils/LoadEntities"
+import Auth from "@Middlewares/Auth"
 
 interface ServerStartResult {
   server: Server
   port: number | string
-}
-
-@Resolver(() => String)
-class HelloWorldResolver {
-  @Query(() => String)
-  async hello(): string {
-    return "hello world"
-  }
 }
 
 export default async function startServer(): Promise<ServerStartResult> {
@@ -33,13 +27,19 @@ export default async function startServer(): Promise<ServerStartResult> {
   const connectionOptions = await getConnectionOptions(
     process.env.NODE_ENV || "dev"
   )
-  await createConnection({ ...connectionOptions, name: "default" })
+  await createConnection({
+    ...connectionOptions,
+    name: "default",
+    entities: loadEntities()
+  })
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [HelloWorldResolver] // loadResolvers()
+      resolvers: loadResolvers(),
+      globalMiddlewares: [Auth]
     }),
     context: (ctx) => ctx,
+
     debug: !isProductionEnv,
     playground: !isProductionEnv
   })

@@ -5,11 +5,12 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToMany
+  ManyToMany,
+  Entity
 } from "typeorm"
-import { Field, ObjectType, Int } from "type-graphql"
-import User from "./User.entity"
-import Product from "./Product.entity"
+import { Field, ObjectType, Int, ID } from "type-graphql"
+import User from "@Entities/User"
+import Product from "@Entities/Product"
 
 enum OrderStatus {
   PENDING = 0,
@@ -17,11 +18,12 @@ enum OrderStatus {
   DELIVERED = 2
 }
 
-@ObjectType()
+@ObjectType("order")
+@Entity("orders")
 export default class Order extends BaseEntity {
-  @Field(() => String)
-  @PrimaryGeneratedColumn("uuid")
-  id!: string
+  @Field(() => ID)
+  @PrimaryGeneratedColumn()
+  id!: number
 
   @Field(() => Int)
   @Column({
@@ -30,10 +32,10 @@ export default class Order extends BaseEntity {
   status!: OrderStatus
 
   @Field(() => User)
-  @Column()
   @ManyToOne(
     () => User,
-    (user) => user.orders
+    (user) => user.orders,
+    { cascade: true }
   )
   user: User
 

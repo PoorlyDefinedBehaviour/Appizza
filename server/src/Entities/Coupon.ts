@@ -1,19 +1,25 @@
-import { Field, Int, ObjectType } from "type-graphql"
+import { Field, Int, ObjectType, ID } from "type-graphql"
 import {
   BaseEntity,
   ManyToMany,
   CreateDateColumn,
   UpdateDateColumn,
   Column,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
+  Entity
 } from "typeorm"
-import Product from "./Product.entity"
+import Product from "@Entities/Product"
 
-@ObjectType()
+@ObjectType("coupon")
+@Entity("coupons")
 export default class Coupon extends BaseEntity {
+  @Field(() => ID)
+  @PrimaryGeneratedColumn()
+  id!: number
+
   @Field(() => String)
-  @PrimaryGeneratedColumn("uuid")
-  id!: string
+  @Column({ unique: true })
+  code!: string
 
   @Field(() => Int)
   @Column()

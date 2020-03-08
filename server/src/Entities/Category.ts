@@ -1,18 +1,21 @@
-import { Field } from "type-graphql"
+import { Field, ObjectType, ID } from "type-graphql"
 import {
   BaseEntity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
   Column,
-  ManyToMany
+  ManyToMany,
+  Entity
 } from "typeorm"
-import Product from "./Product.entity"
+import Product from "@Entities/Product"
 
+@ObjectType("category")
+@Entity("categories")
 export default class Category extends BaseEntity {
-  @Field(() => String)
-  @PrimaryGeneratedColumn("uuid")
-  id!: string
+  @Field(() => ID)
+  @PrimaryGeneratedColumn()
+  id!: number
 
   @Field(() => String)
   @Column()
@@ -22,7 +25,6 @@ export default class Category extends BaseEntity {
   @Column()
   description!: string
 
-  @Field(() => [Product])
   @ManyToMany(
     () => Product,
     (product) => product.categories

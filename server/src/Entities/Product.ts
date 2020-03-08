@@ -2,20 +2,23 @@ import {
   BaseEntity,
   Column,
   PrimaryGeneratedColumn,
-  ManyToMany,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  ManyToMany,
+  Entity
 } from "typeorm"
-import { Field, ObjectType } from "type-graphql"
-import Coupon from "./Coupon.entity"
-import Order from "./Order.entity"
-import Category from "./Category.entity"
+import { Field, ObjectType, ID } from "type-graphql"
 
-@ObjectType()
+import Coupon from "@Entities/Coupon"
+import Order from "@Entities/Order"
+import Category from "@Entities/Category"
+
+@ObjectType("product")
+@Entity("products")
 export default class Product extends BaseEntity {
-  @Field(() => String)
-  @PrimaryGeneratedColumn("uuid")
-  id!: string
+  @Field(() => ID)
+  @PrimaryGeneratedColumn()
+  id!: number
 
   @Field(() => String)
   @Column()
@@ -29,21 +32,21 @@ export default class Product extends BaseEntity {
   @Column()
   price!: string
 
-  @Field(() => [Order])
+  @Field(() => [Order], { defaultValue: [] })
   @ManyToMany(
     () => Order,
     (order) => order.products
   )
   orders: Order[]
 
-  @Field(() => [Coupon])
+  @Field(() => [Coupon], { defaultValue: [] })
   @ManyToMany(
     () => Coupon,
     (coupon) => coupon.products
   )
   coupons: Coupon[]
 
-  @Field(() => [Category])
+  @Field(() => [Category], { defaultValue: [] })
   @ManyToMany(
     () => Category,
     (category) => category.products
