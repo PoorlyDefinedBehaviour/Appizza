@@ -1,4 +1,4 @@
-import { Field } from "type-graphql"
+import { Field, ObjectType } from "type-graphql"
 import {
   BaseEntity,
   PrimaryGeneratedColumn,
@@ -9,6 +9,7 @@ import {
 } from "typeorm"
 import Product from "./Product.entity"
 
+@ObjectType()
 export default class Category extends BaseEntity {
   @Field(() => String)
   @PrimaryGeneratedColumn("uuid")

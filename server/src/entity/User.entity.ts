@@ -7,12 +7,14 @@ import {
   BeforeInsert,
   BeforeUpdate,
   AfterLoad,
-  OneToMany
+  OneToMany,
+  ManyToMany
 } from "typeorm"
 import { ObjectType, Field } from "type-graphql"
 import { hash, compare } from "bcryptjs"
 import Order from "./Order.entity"
 import Token from "./Token.entity"
+import Role from "./Role.entity"
 
 @ObjectType()
 export default class User extends BaseEntity {
@@ -62,6 +64,13 @@ export default class User extends BaseEntity {
     (token) => token.user
   )
   tokens: Token[]
+
+  @Field(() => [Role])
+  @ManyToMany(
+    () => Role,
+    (role) => role.users
+  )
+  roles: Role[]
 
   @AfterLoad()
   private loadTempPassword(): void {
