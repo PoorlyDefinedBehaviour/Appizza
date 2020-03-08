@@ -19,7 +19,7 @@ enum PaymentType {
 }
 
 @ObjectType("payment")
-@Entity("payment")
+@Entity("payments")
 export default class Payment extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()

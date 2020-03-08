@@ -20,7 +20,7 @@ import Token from "@Entities/Token"
 import Role from "@Entities/Role"
 
 @ObjectType("user")
-@Entity("user")
+@Entity("users")
 export default class User extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
@@ -99,8 +99,7 @@ export default class User extends BaseEntity {
     }
   }
 
-  async isPasswordCorrect(password: string): Promise<boolean> {
-    const correct = await compare(password, this.password)
-    return correct
+  isCorrectPassword(password: string): Promise<boolean> {
+    return compare(password, this.password)
   }
 }

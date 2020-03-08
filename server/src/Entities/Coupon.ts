@@ -11,7 +11,7 @@ import {
 import Product from "@Entities/Product"
 
 @ObjectType("coupon")
-@Entity("coupon")
+@Entity("coupons")
 export default class Coupon extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()

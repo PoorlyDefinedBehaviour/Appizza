@@ -3,12 +3,17 @@ import { getConnectionOptions } from "typeorm"
 import { join } from "path"
 import { readdir } from "fs"
 import { promisify } from "util"
+import loadEntities from "@Utils/LoadEntities"
 
 async function seed(): Promise<void> {
   const connectionOptions = await getConnectionOptions(
     process.env.NODE_ENV || "dev"
   )
-  await createConnection({ ...connectionOptions, name: "default" })
+  await createConnection({
+    ...connectionOptions,
+    entities: loadEntities(),
+    name: "default"
+  })
 
   const files = await promisify(readdir)(__dirname)
 

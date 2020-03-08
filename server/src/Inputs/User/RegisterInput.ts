@@ -10,7 +10,7 @@ import {
 } from "class-validator"
 
 @InputType()
-export default class UserInput {
+export default class RegisterInput {
   @IsNotEmpty({ message: "A first name is required" })
   @MaxLength(255, { message: "First name can't be longer than 255 characters" })
   @Field(() => String)
@@ -36,8 +36,8 @@ export default class UserInput {
   @Field(() => String)
   password!: string
 
-  @MaxLength(11, { message: "Phone number must have 11 numbers" })
   @IsNotEmpty({ message: "A phone number is required" })
+  @MaxLength(11, { message: "Phone number must have 11 numbers" })
   @IsNumberString({ message: "A phone number can only contain numbers" })
   @Field(() => String)
   phone!: string

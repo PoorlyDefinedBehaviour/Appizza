@@ -14,7 +14,7 @@ import Order from "@Entities/Order"
 import Category from "@Entities/Category"
 
 @ObjectType("product")
-@Entity("product")
+@Entity("products")
 export default class Product extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()

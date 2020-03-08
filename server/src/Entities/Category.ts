@@ -11,7 +11,7 @@ import {
 import Product from "@Entities/Product"
 
 @ObjectType("category")
-@Entity("category")
+@Entity("categories")
 export default class Category extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()

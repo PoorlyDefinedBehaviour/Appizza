@@ -19,7 +19,7 @@ enum OrderStatus {
 }
 
 @ObjectType("order")
-@Entity("order")
+@Entity("orders")
 export default class Order extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()

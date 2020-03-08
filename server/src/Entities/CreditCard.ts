@@ -10,7 +10,7 @@ import {
 } from "typeorm"
 import Payment from "@Entities/Payment"
 
-@Entity("credit_card")
+@Entity("credit_cards")
 export default class CreditCard extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number

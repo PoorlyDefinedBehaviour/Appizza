@@ -12,7 +12,7 @@ import { ObjectType, Field, ID } from "type-graphql"
 import User from "@Entities/User"
 
 @ObjectType("role")
-@Entity("role")
+@Entity("roles")
 export default class Role extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
