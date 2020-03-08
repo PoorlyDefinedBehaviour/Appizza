@@ -5,16 +5,18 @@ import {
   UpdateDateColumn,
   BaseEntity,
   Column,
-  Index
+  Entity
 } from "typeorm"
-import User from "./User.entity"
-import { ObjectType, Field } from "type-graphql"
+import { ObjectType, Field, ID } from "type-graphql"
 
-@ObjectType()
+import User from "@Entities/User"
+
+@ObjectType("role")
+@Entity("role")
 export default class Role extends BaseEntity {
-  @Field(() => String)
-  @PrimaryGeneratedColumn("uuid")
-  id!: string
+  @Field(() => ID)
+  @PrimaryGeneratedColumn()
+  id!: number
 
   @Field(() => String)
   @Column()
@@ -22,7 +24,6 @@ export default class Role extends BaseEntity {
 
   @Field(() => String)
   @Column({ unique: true })
-  @Index()
   slug!: string
 
   @Field(() => String)

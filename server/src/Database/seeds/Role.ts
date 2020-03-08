@@ -1,4 +1,4 @@
-import Role from "../entity/Role.entity"
+import Role from "@Entities/Role"
 
 export default async function run() {
   await Promise.all([

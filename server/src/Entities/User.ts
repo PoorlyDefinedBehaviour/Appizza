@@ -1,26 +1,30 @@
 import {
   PrimaryGeneratedColumn,
-  Column,
   BaseEntity,
+  Column,
   CreateDateColumn,
   UpdateDateColumn,
-  BeforeInsert,
-  BeforeUpdate,
-  AfterLoad,
   OneToMany,
-  ManyToMany
+  AfterLoad,
+  ManyToMany,
+  BeforeUpdate,
+  BeforeInsert,
+  Entity
 } from "typeorm"
-import { ObjectType, Field } from "type-graphql"
-import { hash, compare } from "bcryptjs"
-import Order from "./Order.entity"
-import Token from "./Token.entity"
-import Role from "./Role.entity"
+import { Field, ObjectType, ID } from "type-graphql"
 
-@ObjectType()
+import { hash, compare } from "bcryptjs"
+
+import Order from "@Entities/Order"
+import Token from "@Entities/Token"
+import Role from "@Entities/Role"
+
+@ObjectType("user")
+@Entity("user")
 export default class User extends BaseEntity {
-  @Field(() => String)
-  @PrimaryGeneratedColumn("uuid")
-  id!: string
+  @Field(() => ID)
+  @PrimaryGeneratedColumn()
+  id!: number
 
   @Field(() => String)
   @Column()
@@ -41,8 +45,8 @@ export default class User extends BaseEntity {
   @Column()
   password!: string
 
-  @Column()
-  temp_password!: string
+  @Column({ nullable: true })
+  temp_password: string
 
   @Field(() => Date)
   @CreateDateColumn()
@@ -78,16 +82,20 @@ export default class User extends BaseEntity {
     this.temp_password = this.password
   }
 
-  @BeforeInsert()
-  async hashPassword(password: string): Promise<void> {
+  private hashPassword(password: string): Promise<string> {
     const SALT_ROUNDS = 10
-    this.password = await hash(password, SALT_ROUNDS)
+    return hash(password, SALT_ROUNDS)
+  }
+
+  @BeforeInsert()
+  async hashPasswordBeforeInsert(): Promise<void> {
+    this.password = await this.hashPassword(this.password)
   }
 
   @BeforeUpdate()
   async hashPasswordBeforeUpdate(): Promise<void> {
     if (this.temp_password !== this.password) {
-      await this.hashPassword(this.password)
+      this.password = await this.hashPassword(this.password)
     }
   }
 

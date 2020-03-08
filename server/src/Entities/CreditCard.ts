@@ -5,13 +5,15 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Column,
-  ManyToOne
+  ManyToOne,
+  Entity
 } from "typeorm"
-import Payment from "./Payment.entity"
+import Payment from "@Entities/Payment"
 
+@Entity("credit_card")
 export default class CreditCard extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid")
-  id!: string
+  @PrimaryGeneratedColumn()
+  id!: number
 
   @Column({ unique: true })
   number!: string

@@ -1,22 +1,24 @@
-import { Field } from "type-graphql"
+import { Field, ID } from "type-graphql"
 import {
   BaseEntity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
   Column,
-  ManyToOne
+  ManyToOne,
+  Entity
 } from "typeorm"
-import User from "./User.entity"
+import User from "@Entities/User"
 
 enum TokenType {
   AUTH = 0
 }
 
+@Entity("token")
 export default class Token extends BaseEntity {
-  @Field(() => String)
-  @PrimaryGeneratedColumn("uuid")
-  id!: string
+  @Field(() => ID)
+  @PrimaryGeneratedColumn()
+  id!: number
 
   @Field(() => String)
   @Column()
@@ -24,7 +26,8 @@ export default class Token extends BaseEntity {
 
   @ManyToOne(
     () => User,
-    (user) => user.tokens
+    (user) => user.tokens,
+    { cascade: true }
   )
   user!: User
 
