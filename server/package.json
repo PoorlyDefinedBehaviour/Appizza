@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "node_modules/.bin/nodemon",
-    "db:seed": "node_modules/.bin/ts-node src/seeds/Seed"
+    "db:seed": "node -r tsconfig-paths/register -r ts-node/register src/Database/seeds/Seed"
   },
   "nodemonConfig": {
     "ignore": [

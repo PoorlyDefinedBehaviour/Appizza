@@ -9,7 +9,7 @@ async function seed(): Promise<void> {
   const connectionOptions = await getConnectionOptions(
     process.env.NODE_ENV || "dev"
   )
-  await createConnection({
+  const connection = await createConnection({
     ...connectionOptions,
     entities: loadEntities(),
     name: "default"
@@ -23,7 +23,12 @@ async function seed(): Promise<void> {
       .map((name) => import(join(__dirname, name)))
   )
 
-  seeders.forEach((seeder) => seeder.default())
+  console.log("seeders", seeders)
+
+  console.log("connection", connection)
+
+  await Promise.all(seeders.map((seeder) => seeder.default()))
+
+  await connection.close()
 }
 seed()
-process.exit()
