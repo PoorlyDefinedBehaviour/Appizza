@@ -1,6 +1,6 @@
 import React from 'react';
-import Login from './pages/Login';
+import ForgotPassword from './pages/ForgotPassword';
 
 export default function App() {
-  return <Login />;
+  return <ForgotPassword />;
 }
