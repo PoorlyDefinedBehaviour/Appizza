@@ -10,7 +10,7 @@ import { Server } from "http"
 
 import loadResolvers from "@Utils/LoadResolvers"
 import loadEntities from "@Utils/LoadEntities"
-import Auth from "@Helpers/Auth"
+import Auth from "@Middlewares/Auth"
 
 interface ServerStartResult {
   server: Server
@@ -35,9 +35,11 @@ export default async function startServer(): Promise<ServerStartResult> {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: loadResolvers()
+      resolvers: loadResolvers(),
+      globalMiddlewares: [Auth]
     }),
-    context: (ctx) => ({ ...ctx, auth: new Auth() }),
+    context: (ctx) => ({ ...ctx }),
+
     debug: !isProductionEnv,
     playground: !isProductionEnv
   })

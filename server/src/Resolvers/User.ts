@@ -28,6 +28,14 @@ export default class UserResolver {
   }
 
   @UseMiddleware(Authenticated)
+  @Mutation(() => Boolean)
+  async logout(@Ctx() { auth }) {
+    await auth.logout()
+
+    return true
+  }
+
+  @UseMiddleware(Authenticated)
   @Query(() => User)
   async me(@Ctx() { auth }) {
     return auth.user
