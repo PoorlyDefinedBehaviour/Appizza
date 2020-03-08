@@ -7,30 +7,13 @@
     "password": "password",
     "synchronize": true,
     "logging": true,
-    "entities": ["src/entity/**/*.ts"],
-    "migrations": ["src/migration/**/*.ts"],
-    "subscribers": ["src/subscriber/**/*.ts"],
+    "entities": ["./src/Entities/**/*.(ts|js)"],
+    "migrations": ["database/migrations/**/*.(ts|js)"],
+    "subscribers": ["database/subscribers/**/*.(ts|js)"],
     "cli": {
-      "entitiesDir": "src/entity",
-      "migrationsDir": "src/migration",
-      "subscribersDir": "src/subscriber"
-    }
-  },
-  {
-    "name": "test",
-    "type": "mysql",
-    "database": "appizzas_test",
-    "username": "root",
-    "password": "password",
-    "synchronize": true,
-    "logging": false,
-    "entities": ["src/entity/**/*.ts"],
-    "migrations": ["src/migration/**/*.ts"],
-    "subscribers": ["src/subscriber/**/*.ts"],
-    "cli": {
-      "entitiesDir": "src/entity",
-      "migrationsDir": "src/migration",
-      "subscribersDir": "src/subscriber"
+      "entitiesDir": "src/Entities",
+      "migrationsDir": "src/database/migrations",
+      "subscribersDir": "src/database/subscribers"
     }
   }
 ]

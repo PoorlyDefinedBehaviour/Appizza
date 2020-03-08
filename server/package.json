@@ -4,8 +4,20 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node-dev src/main",
-    "db:seed": "ts-node src/seeds/Seed"
+    "dev": "node_modules/.bin/nodemon"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "node -r tsconfig-paths/register -r ts-node/register ./src/main.ts",
+    "ext": "ts, js"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -18,19 +30,21 @@
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "module-alias": "^2.2.2",
+    "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
-    "ts-node-dev": "^1.0.0-pre.44",
+    "ts-node": "^8.6.2",
+    "tsconfig-paths": "^3.9.0",
     "typescript": "^3.8.3"
   },
   "dependencies": {
     "apollo-server-express": "^2.11.0",
     "bcryptjs": "^2.4.3",
+    "class-validator": "^0.11.0",
     "graphql": "^14.6.0",
     "mysql2": "^2.1.0",
     "process-env-loader": "^1.1.0",
     "reflect-metadata": "^0.1.13",
-    "type-graphql": "^0.17.6",
+    "type-graphql": "^0.17.5",
     "typeorm": "^0.2.24"
   }
 }
