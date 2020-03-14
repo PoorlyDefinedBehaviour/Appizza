@@ -10,6 +10,6 @@ export default class LoginInput {
   email!: string
 
   @IsNotEmpty({ message: "A passoword is required to login" })
-  @Field(() => String)
+  @Field(() => String, { nullable: false })
   password!: string
 }

@@ -1,6 +1,5 @@
 import { Field, Int, ObjectType, ID } from "type-graphql"
 import {
-  BaseEntity,
   ManyToMany,
   CreateDateColumn,
   UpdateDateColumn,
@@ -9,10 +8,11 @@ import {
   Entity
 } from "typeorm"
 import Product from "@Entities/Product"
+import ExtendedEntity from "@Contracts/ExtendedEntity"
 
 @ObjectType("coupon")
 @Entity("coupons")
-export default class Coupon extends BaseEntity {
+export default class Coupon extends ExtendedEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id!: number

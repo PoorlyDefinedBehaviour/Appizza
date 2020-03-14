@@ -1,5 +1,4 @@
 import {
-  BaseEntity,
   Column,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -11,6 +10,7 @@ import {
 import { Field, ObjectType, Int, ID } from "type-graphql"
 import User from "@Entities/User"
 import Product from "@Entities/Product"
+import ExtendedEntity from "@Contracts/ExtendedEntity"
 
 enum OrderStatus {
   PENDING = 0,
@@ -20,7 +20,7 @@ enum OrderStatus {
 
 @ObjectType("order")
 @Entity("orders")
-export default class Order extends BaseEntity {
+export default class Order extends ExtendedEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id!: number

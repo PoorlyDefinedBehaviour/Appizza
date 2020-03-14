@@ -19,4 +19,4 @@ services:
       - .:/usr/app
     depends_on:
       - db
-    command: yarn start
+    command: yarn dev

@@ -1,5 +1,4 @@
 import {
-  BaseEntity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
@@ -11,6 +10,7 @@ import {
 import { ObjectType, Field, Int, ID } from "type-graphql"
 import CreditCard from "@Entities/CreditCard"
 import Order from "@Entities/Order"
+import ExtendedEntity from "@Contracts/ExtendedEntity"
 
 enum PaymentType {
   FREE = 0,
@@ -20,7 +20,7 @@ enum PaymentType {
 
 @ObjectType("payment")
 @Entity("payments")
-export default class Payment extends BaseEntity {
+export default class Payment extends ExtendedEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id!: number

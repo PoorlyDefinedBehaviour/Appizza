@@ -1,6 +1,5 @@
 import { Field } from "type-graphql"
 import {
-  BaseEntity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
@@ -9,9 +8,10 @@ import {
   Entity
 } from "typeorm"
 import Payment from "@Entities/Payment"
+import ExtendedEntity from "@Contracts/ExtendedEntity"
 
 @Entity("credit_cards")
-export default class CreditCard extends BaseEntity {
+export default class CreditCard extends ExtendedEntity {
   @PrimaryGeneratedColumn()
   id!: number
 

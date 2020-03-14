@@ -26,7 +26,7 @@ yarn start
 
 # GraphQL Playground
 
-Go to localhost:<PORT>/graphql
+Go to `localhost:PORT/graphql`
 
 If a route requires authentication you need to:
 
