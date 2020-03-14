@@ -57,7 +57,7 @@ export default class Token extends ExtendedEntity {
           userId: (user.id as unknown) as string,
           noise: crypto.randomBytes(16).toString("hex")
         },
-        process.env.JWT_SECRET!
+        process.env.APP_KEY!
       ),
       user
     }).save()
@@ -73,7 +73,7 @@ export default class Token extends ExtendedEntity {
           noise: crypto.randomBytes(16).toString("hex"),
           type
         },
-        process.env.JWT_SECRET!
+        process.env.APP_KEY!
       ),
       user
     }).save()
