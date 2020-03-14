@@ -1,6 +1,6 @@
 import { Field, ObjectType, Int } from "type-graphql"
 
-interface PaginationData {
+export interface PaginationData {
   skip: number
   take: number
   count: number

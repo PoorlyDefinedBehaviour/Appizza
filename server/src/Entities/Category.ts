@@ -1,4 +1,4 @@
-import { Field, ObjectType, ID } from "type-graphql"
+import { Field, ObjectType, ID, createUnionType } from "type-graphql"
 import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
@@ -9,6 +9,12 @@ import {
 } from "typeorm"
 import Product from "@Entities/Product"
 import ExtendedEntity from "@Contracts/ExtendedEntity"
+import Pagination from "@Contracts/Pagination"
+
+export const PaginatedCategories = createUnionType({
+  name: "categories",
+  types: () => [Pagination, Category]
+})
 
 @ObjectType("category")
 @Entity("categories")
@@ -25,6 +31,7 @@ export default class Category extends ExtendedEntity {
   @Column()
   description!: string
 
+  @Field(() => [Product], { defaultValue: [] })
   @ManyToMany(
     () => Product,
     (product) => product.categories

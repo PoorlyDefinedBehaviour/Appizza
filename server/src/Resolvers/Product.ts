@@ -31,18 +31,20 @@ export default class ProductResolver {
 
   @Mutation(() => Boolean)
   @UseMiddleware(Authenticated, HasRole("administrator"))
-  async deleteProduct(@Arg("id") id: string) {
-    await Product.delete(id)
+  async deleteProduct(@Arg("id") id: number) {
+    const { affected } = await Product.delete(id)
 
-    return true
+    return affected === 1
   }
 
   @Query(() => [PaginatedProducts])
+  @UseMiddleware(Authenticated)
   getProducts(@Arg("pagination") { skip, take }: PaginationInput) {
     return Product.paginate(skip, take)
   }
 
   @Query(() => [PaginatedProducts])
+  @UseMiddleware(Authenticated)
   async getProductsByCategories(
     @Arg("pagination") { skip, take }: PaginationInput,
     @Arg("categories", () => [Int]) categories: number[]
@@ -57,6 +59,7 @@ export default class ProductResolver {
   }
 
   @Query(() => [PaginatedProducts])
+  @UseMiddleware(Authenticated)
   getProductsByTitle(
     @Arg("pagination") { skip, take }: PaginationInput,
     @Arg("title") title: string
@@ -67,6 +70,7 @@ export default class ProductResolver {
   }
 
   @Query(() => PaginatedProducts, { nullable: true })
+  @UseMiddleware(Authenticated)
   getProductById(@Arg("id") id: number) {
     return Product.findOne({ where: { id } })
   }
