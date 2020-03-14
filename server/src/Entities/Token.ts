@@ -64,7 +64,7 @@ export default class Token extends ExtendedEntity {
   }
 
   static async forType(user: User, type: TokenType): Promise<Token> {
-    await Token.delete({ user, type: TokenType.PASSWORD_RESET })
+    await Token.delete({ user, type })
 
     return Token.create({
       value: jwt.sign(
