@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType, ID } from "type-graphql"
+import { Field, Int, ObjectType, ID, createUnionType } from "type-graphql"
 import {
   ManyToMany,
   CreateDateColumn,
@@ -9,6 +9,12 @@ import {
 } from "typeorm"
 import Product from "@Entities/Product"
 import ExtendedEntity from "@Contracts/ExtendedEntity"
+import Pagination from "@Contracts/Pagination"
+
+export const PaginatedCoupons = createUnionType({
+  name: "coupons",
+  types: () => [Pagination, Coupon]
+})
 
 @ObjectType("coupon")
 @Entity("coupons")
@@ -23,7 +29,11 @@ export default class Coupon extends ExtendedEntity {
 
   @Field(() => Int)
   @Column()
-  discount!: number
+  discount_percentage!: number
+
+  @Field(() => Int)
+  @Column()
+  use_limit!: number
 
   @Field(() => Date)
   @Column()
@@ -33,7 +43,7 @@ export default class Coupon extends ExtendedEntity {
   @Column()
   valid_until!: Date
 
-  @Field(() => [Product])
+  @Field(() => [Product], { defaultValue: [] })
   @ManyToMany(
     () => Product,
     (product) => product.coupons

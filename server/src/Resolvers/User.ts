@@ -14,12 +14,12 @@ import Authenticated from "@Middlewares/Authenticated"
 @Resolver(() => User)
 export default class UserResolver {
   @Mutation(() => User)
-  registerUser(@Arg("user") data: RegisterInput) {
+  registerUser(@Arg("data") data: RegisterInput) {
     return User.create(data).save()
   }
 
   @Mutation(() => String)
-  login(@Arg("user") data: LoginInput, @Ctx() { auth }) {
+  login(@Arg("data") data: LoginInput, @Ctx() { auth }) {
     return auth.loginJWT(data)
   }
 
