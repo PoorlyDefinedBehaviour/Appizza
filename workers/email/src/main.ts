@@ -1,16 +1,17 @@
 import load from "process-env-loader"
 load("../../server")
-import Queue from "bull"
+import { promisify } from "util"
 import mailgun from "mailgun-js"
+import { Worker } from "bullmq"
 
-const emailQueue = new Queue("email_password_reset")
+const mg = mailgun({
+  apiKey: process.env.MAILGUN_API_KEY!,
+  domain: process.env.MAILGUN_DOMAIN!
+})
 
-emailQueue.process((job, done) => {
-  const mg = mailgun({
-    apiKey: process.env.MAILGUN_API_KEY!,
-    domain: process.env.MAILGUN_DOMAIN!
-  })
+const sendEmail = promisify(mg.messages().send)
 
+const worker = new Worker("reset_password_email", async job => {
   const data = {
     from: "noreply@appizzas.com",
     to: job.data.to,
@@ -18,13 +19,9 @@ emailQueue.process((job, done) => {
     html: `Reseta ai gente fina: ${job.data.link}`
   }
 
-  mg.messages().send(data, (error, body) => {
-    if (error) {
-      console.error(`Failed to send email to ${job.data.to}`)
-      console.error(error)
-    } else {
-      console.log(body)
-    }
-    done()
-  })
+  await sendEmail(data)
 })
+
+worker.on("failed", job =>
+  console.error(`Failed to send email to ${job.data.to}`)
+)
