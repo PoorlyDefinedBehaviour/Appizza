@@ -1,6 +1,5 @@
 import { Field, ID } from "type-graphql"
 import {
-  BaseEntity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
@@ -11,13 +10,14 @@ import {
 import crypto from "crypto"
 import jwt from "jsonwebtoken"
 import User from "@Entities/User"
+import ExtendedEntity from "@Contracts/ExtendedEntity"
 
 export enum TokenType {
   AUTH = 0
 }
 
 @Entity("tokens")
-export default class Token extends BaseEntity {
+export default class Token extends ExtendedEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id!: number

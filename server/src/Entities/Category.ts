@@ -1,6 +1,5 @@
 import { Field, ObjectType, ID } from "type-graphql"
 import {
-  BaseEntity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
@@ -9,10 +8,11 @@ import {
   Entity
 } from "typeorm"
 import Product from "@Entities/Product"
+import ExtendedEntity from "@Contracts/ExtendedEntity"
 
 @ObjectType("category")
 @Entity("categories")
-export default class Category extends BaseEntity {
+export default class Category extends ExtendedEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id!: number

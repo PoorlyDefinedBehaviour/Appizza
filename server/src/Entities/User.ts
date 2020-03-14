@@ -1,6 +1,5 @@
 import {
   PrimaryGeneratedColumn,
-  BaseEntity,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
@@ -18,10 +17,11 @@ import { hash, compare } from "bcryptjs"
 import Order from "@Entities/Order"
 import Token from "@Entities/Token"
 import Role from "@Entities/Role"
+import ExtendedEntity from "@Contracts/ExtendedEntity"
 
 @ObjectType("user")
 @Entity("users")
-export default class User extends BaseEntity {
+export default class User extends ExtendedEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id!: number
@@ -41,6 +41,10 @@ export default class User extends BaseEntity {
   @Field(() => String)
   @Column()
   phone!: string
+
+  @Field(() => Boolean)
+  @Column()
+  receive_notifications!: boolean
 
   @Column()
   password!: string
