@@ -23,10 +23,6 @@ async function seed(): Promise<void> {
       .map((name) => import(join(__dirname, name)))
   )
 
-  console.log("seeders", seeders)
-
-  console.log("connection", connection)
-
   await Promise.all(seeders.map((seeder) => seeder.default()))
 
   await connection.close()
