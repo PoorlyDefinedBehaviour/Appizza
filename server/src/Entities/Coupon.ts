@@ -5,7 +5,8 @@ import {
   UpdateDateColumn,
   Column,
   PrimaryGeneratedColumn,
-  Entity
+  Entity,
+  JoinTable
 } from "typeorm"
 import Product from "@Entities/Product"
 import ExtendedEntity from "@Contracts/ExtendedEntity"
@@ -44,6 +45,7 @@ export default class Coupon extends ExtendedEntity {
   valid_until!: Date
 
   @Field(() => [Product], { defaultValue: [] })
+  @JoinTable()
   @ManyToMany(
     () => Product,
     (product) => product.coupons

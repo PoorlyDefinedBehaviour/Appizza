@@ -12,13 +12,18 @@ import HasRole from "@Middlewares/HasRole"
 import Product, { PaginatedProducts } from "@Entities/Product"
 import PaginationInput from "@Inputs/Pagination/PaginationInput"
 import { Like } from "typeorm"
+import Category from "@Entities/Category"
 
 @Resolver(() => Product)
 export default class ProductResolver {
   @Mutation(() => Product)
   @UseMiddleware(Authenticated, HasRole("administrator"))
-  createProduct(@Arg("data") data: ProductInput) {
-    return Product.create(data).save()
+  async createProduct(@Arg("data") data: ProductInput) {
+    const product = Product.create(data)
+
+    product.categories = await Category.findByIds(data.categories)
+
+    return product.save()
   }
 
   @Mutation(() => Product)
@@ -69,7 +74,7 @@ export default class ProductResolver {
     })
   }
 
-  @Query(() => PaginatedProducts, { nullable: true })
+  @Query(() => Product, { nullable: true })
   @UseMiddleware(Authenticated)
   getProductById(@Arg("id") id: number) {
     return Product.findOne({ where: { id } })

@@ -3,20 +3,25 @@ services:
   db:
     restart: always
     image: mysql
+    command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: "password"
     volumes:
       - ./appizzas_database:/var/lib/appizzas_database/data
     ports:
       - "3306:3306"
+  redis:
+    restart: always
+    image: redis
+    ports:
+      - "6379:6379"
   app:
     build: .
     volumes:
       - ./:/usr/src/app
     ports:
       - "8080:8080"
-    volumes:
-      - .:/usr/app
     depends_on:
       - db
+      - redis
     command: yarn dev

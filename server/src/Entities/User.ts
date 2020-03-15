@@ -8,7 +8,8 @@ import {
   ManyToMany,
   BeforeUpdate,
   BeforeInsert,
-  Entity
+  Entity,
+  JoinTable
 } from "typeorm"
 import { Field, ObjectType, ID } from "type-graphql"
 
@@ -61,6 +62,7 @@ export default class User extends ExtendedEntity {
   updated_at!: Date
 
   @Field(() => [Order])
+  @JoinTable()
   @OneToMany(
     () => Order,
     (order) => order.user

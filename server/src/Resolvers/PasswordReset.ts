@@ -26,7 +26,7 @@ export default class PasswordResetResolver {
 
   @Mutation(() => User)
   async changePassword(
-    @Arg("token") tokenValue,
+    @Arg("token") tokenValue: string,
     @Arg("password") password: string
   ) {
     const token = await Token.findOneOrFail({
