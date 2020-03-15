@@ -1,0 +1,19 @@
+[
+  {
+    "name": "dev",
+    "type": "mysql",
+    "database": "appizzas",
+    "username": "root",
+    "password": "password",
+    "synchronize": true,
+    "logging": true,
+    "entities": ["./src/Entities/**/*.(ts|js)"],
+    "migrations": ["database/migrations/**/*.(ts|js)"],
+    "subscribers": ["database/subscribers/**/*.(ts|js)"],
+    "cli": {
+      "entitiesDir": "src/Entities",
+      "migrationsDir": "src/database/migrations",
+      "subscribersDir": "src/database/subscribers"
+    }
+  }
+]
