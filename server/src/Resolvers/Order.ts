@@ -23,12 +23,10 @@ export default class OrderResolver {
     @Arg("products", () => [Int]) products: number[],
     @Ctx() { auth }
   ) {
-    console.log("auth.user.id", auth.user)
     const order = Order.create({ user: auth.user })
 
     order.products = await Product.findByIds(products)
 
-    console.log("ordeR", order)
     return order.save()
   }
 
