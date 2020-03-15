@@ -1,0 +1,19 @@
+{
+  "name": "email",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node_modules/.bin/ts-node src/main"
+  },
+  "devDependencies": {
+    "@types/bull": "^3.12.1",
+    "@types/mailgun-js": "^0.22.4",
+    "process-env-loader": "^1.1.0",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "bullmq": "^1.8.3",
+    "mailgun-js": "^0.22.0"
+  }
+}
