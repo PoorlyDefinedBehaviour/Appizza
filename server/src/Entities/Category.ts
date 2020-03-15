@@ -5,7 +5,8 @@ import {
   UpdateDateColumn,
   Column,
   ManyToMany,
-  Entity
+  Entity,
+  JoinTable
 } from "typeorm"
 import Product from "@Entities/Product"
 import ExtendedEntity from "@Contracts/ExtendedEntity"
@@ -32,6 +33,7 @@ export default class Category extends ExtendedEntity {
   description!: string
 
   @Field(() => [Product], { defaultValue: [] })
+  @JoinTable()
   @ManyToMany(
     () => Product,
     (product) => product.categories

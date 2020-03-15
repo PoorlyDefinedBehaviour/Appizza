@@ -1,12 +1,6 @@
 import { InputType, Field, Int } from "type-graphql"
 
-import {
-  IsNotEmpty,
-  IsString,
-  IsOptional,
-  IsArray,
-  IsNumberString
-} from "class-validator"
+import { IsNotEmpty, IsString, IsArray, IsNumberString } from "class-validator"
 import Category from "@Entities/Category"
 
 @InputType()
@@ -27,7 +21,6 @@ export default class ProductInput {
   price!: string
 
   @Field(() => [Int], { nullable: true })
-  @IsOptional()
   @IsArray({ message: "Categories must be an array of category ids" })
-  categories?: Category[]
+  categories: Category[]
 }

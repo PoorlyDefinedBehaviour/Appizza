@@ -4,7 +4,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToMany,
-  Entity
+  Entity,
+  JoinTable
 } from "typeorm"
 import { Field, ObjectType, ID, createUnionType } from "type-graphql"
 
@@ -39,6 +40,7 @@ export default class Product extends ExtendedEntity {
   price!: string
 
   @Field(() => [Order], { defaultValue: [] })
+  @JoinTable()
   @ManyToMany(
     () => Order,
     (order) => order.products
@@ -55,7 +57,8 @@ export default class Product extends ExtendedEntity {
   @Field(() => [Category], { defaultValue: [] })
   @ManyToMany(
     () => Category,
-    (category) => category.products
+    (category) => category.products,
+    { cascade: true }
   )
   categories: Category[]
 

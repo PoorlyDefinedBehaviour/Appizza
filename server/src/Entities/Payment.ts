@@ -3,20 +3,25 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Column,
-  OneToMany,
   Entity,
   OneToOne
 } from "typeorm"
-import { ObjectType, Field, Int, ID } from "type-graphql"
-import CreditCard from "@Entities/CreditCard"
+import { ObjectType, Field, Int, ID, createUnionType } from "type-graphql"
+
 import Order from "@Entities/Order"
 import ExtendedEntity from "@Contracts/ExtendedEntity"
+import Pagination from "@Contracts/Pagination"
 
 enum PaymentType {
   FREE = 0,
   CREDIT_CARD = 1,
   MONEY = 2
 }
+
+export const PaginatedPayments = createUnionType({
+  name: "payments",
+  types: () => [Pagination, Payment]
+})
 
 @ObjectType("payment")
 @Entity("payments")
@@ -28,12 +33,6 @@ export default class Payment extends ExtendedEntity {
   @Field(() => Int)
   @Column()
   payment_type!: PaymentType.MONEY
-
-  @OneToMany(
-    () => CreditCard,
-    (card) => card.payments
-  )
-  credit_card: CreditCard
 
   @Field(() => Order)
   @OneToOne(() => Order)
