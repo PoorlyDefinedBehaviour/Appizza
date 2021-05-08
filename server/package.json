@@ -49,6 +49,6 @@
     "process-env-loader": "^1.1.0",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^0.17.5",
-    "typeorm": "^0.2.24"
+    "typeorm": "^0.2.25"
   }
 }
