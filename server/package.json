@@ -44,7 +44,7 @@
     "bullmq": "^1.8.3",
     "class-validator": "^0.11.0",
     "graphql": "^14.6.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mysql2": "^2.1.0",
     "process-env-loader": "^1.1.0",
     "reflect-metadata": "^0.1.13",
